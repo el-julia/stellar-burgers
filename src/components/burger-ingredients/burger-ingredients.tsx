@@ -4,10 +4,15 @@ import { useInView } from 'react-intersection-observer';
 import { TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 import { useDispatch, useSelector } from '../../services/store';
+import { fetchIngredients } from '../../services/slices/ingredients-slices';
 
 export const BurgerIngredients: FC = () => {
   /** TODO: взять переменные из стора */
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchIngredients())
+  }, [dispatch]);
   const {items, isLoading } = useSelector((state) => state.ingredients)
   const buns = items.filter((i) => i.type === 'bun');
   const mains = items.filter((i) => i.type === 'main');
