@@ -1,20 +1,47 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TIngredient } from '@utils-types';
 import { getIngredientsApi } from '@api';
+import type { PayloadAction } from '@reduxjs/toolkit';
 
 type TIngredientsState = {
   items: TIngredient[];
   isLoading: boolean;
-}
+};
 const initialState: TIngredientsState = {
   items: [],
-  isLoading: false,
-}
+  isLoading: false
+};
 
-export const fetchingIngredients = createAsyncThunk(
+export const fetchIngredients = createAsyncThunk(
   'ingredients/fetchingIngredients',
   async () => {
     const response = await getIngredientsApi();
     return response;
   }
 );
+
+const ingredientsSlice = createSlice({
+  name: 'ingredients',
+  initialState,
+  reducers: {},
+  selectors: {
+    selectIngredients: (sliceState) => sliceState.items,
+    selectIsLoading: (sliceState) => sliceState.isLoading
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchIngredients.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchIngredients.fulfilled, (state, action) => {
+        state.items = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchIngredients.rejected, (state) => {
+        state.isLoading = false;
+      });
+  }
+});
+export const { selectIngredients, selectIsLoading } = ingredientsSlice.selectors
+
+export default ingredientsSlice.reducer;
