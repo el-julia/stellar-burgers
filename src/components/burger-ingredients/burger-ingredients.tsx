@@ -1,19 +1,24 @@
-import { useState, useRef, useEffect, FC } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import { TTabMode } from '@utils-types';
-import { BurgerIngredientsUI } from '../ui/burger-ingredients';
-import { useDispatch, useSelector } from '../../services/store';
-import { fetchIngredients } from '../../services/slices/ingredients-slices';
+import { BurgerIngredientsUI } from '@ui';
+import { useAppSelector, useDispatch } from '../../services/store';
+import {
+  fetchIngredients,
+  selectIngredients,
+  selectIsLoading
+} from '../../services/slices/ingredients-slices';
 
 export const BurgerIngredients: FC = () => {
   /** TODO: взять переменные из стора */
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchIngredients())
+    dispatch(fetchIngredients());
   }, [dispatch]);
-  const {items, isLoading } = useSelector((state) => state.ingredients)
+  const items = useAppSelector(selectIngredients);
+  const isLoading = useAppSelector(selectIsLoading);
   const buns = items.filter((i) => i.type === 'bun');
   const mains = items.filter((i) => i.type === 'main');
   const sauces = items.filter((i) => i.type === 'sauce');
@@ -55,7 +60,7 @@ export const BurgerIngredients: FC = () => {
       titleSaucesRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  if (isLoading) return <p>Загрузка...</p>
+  if (isLoading) return <p>Загрузка...</p>;
 
   return (
     <BurgerIngredientsUI
