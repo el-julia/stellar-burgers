@@ -15,11 +15,8 @@ export const fetchIngredients = createAsyncThunk(
   'ingredients/fetchingIngredients',
   async () => {
     try {
-      const response = await getIngredientsApi();
-      console.log('1111', response);
-      return response;
+      return await getIngredientsApi();
     } catch (error) {
-      console.log('22226', error);
       throw error;
     }
   }
