@@ -75,6 +75,5 @@ const App = () => {
   );
 };
 
-console.log("111 gt")
 
 export default App;
