@@ -47,10 +47,7 @@ const burgerConstructorSlice = createSlice({
     }
   },
   selectors: {
-    selectConstructorItems: (state) => ({
-      bun: state.bun,
-      ingredients: state.ingredients
-    })
+    selectConstructorItems: (state) => state
   }
 });
 
