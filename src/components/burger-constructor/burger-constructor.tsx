@@ -23,10 +23,12 @@ export const BurgerConstructor: FC = () => {
   const price = useMemo(
     () =>
       (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
-      constructorItems.ingredients.reduce(
-        (s: number, v: TConstructorIngredient) => s + v.price,
-        0
-      ),
+      (Array.isArray(constructorItems.ingredients)
+        ? constructorItems.ingredients.reduce(
+          (sum: number, item: TConstructorIngredient) => sum + item.price,
+          0
+        )
+        : 0),
     [constructorItems]
   );
 
