@@ -82,4 +82,4 @@ export const { clearOrderData } = orderSlice.actions;
 export const { selectOrders, selectOrderData, selectOrderRequest } =
   orderSlice.selectors;
 
-export default orderSlice.reducer;
+export default orderSlice;
