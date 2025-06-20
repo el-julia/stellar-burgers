@@ -14,7 +14,14 @@ const initialState: TConstructorState = {
 const burgerConstructorSlice = createSlice({
   name: 'constructor',
   initialState,
-  reducers: {}
+  reducers: {},
+  selectors: {
+    selectConstructorItems: (state) => ({
+      bun: state.bun,
+      ingredients: state.ingredients
+    })
+  }
 });
 
+export const { selectConstructorItems } = burgerConstructorSlice.selectors
 export default burgerConstructorSlice.reducer;
