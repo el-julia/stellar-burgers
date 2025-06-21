@@ -1,4 +1,8 @@
-import { ActionCreatorWithPayload, combineReducers, configureStore } from '@reduxjs/toolkit';
+import {
+  ActionCreatorWithPayload,
+  combineReducers,
+  configureStore
+} from '@reduxjs/toolkit';
 import ingredients from './slices/ingredients-slices';
 import burgerConstructor from './slices/burgerConstructor-slices';
 import order from './slices/order-slice';

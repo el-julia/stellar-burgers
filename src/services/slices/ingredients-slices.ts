@@ -5,10 +5,12 @@ import { getIngredientsApi } from '@api';
 type TIngredientsState = {
   items: TIngredient[];
   isLoading: boolean;
+  selectedIngredients: TIngredient | null;
 };
 const initialState: TIngredientsState = {
   items: [],
-  isLoading: false
+  isLoading: false,
+  selectedIngredients: null
 };
 
 export const fetchIngredients = createAsyncThunk(
