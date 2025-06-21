@@ -1,5 +1,5 @@
 import { TOrder } from '@utils-types';
-import { getOrderByNumberApi, getOrdersApi } from '@api';
+import { getOrderByNumberApi, getOrdersApi, orderBurgerApi } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type TOrderState = {
@@ -7,6 +7,11 @@ type TOrderState = {
   orderData: TOrder | null;
   orderRequest: boolean;
   error: string | null;
+};
+
+type TOrderResponse = {
+  order: TOrder;
+  name: string;
 };
 
 const initialState: TOrderState = {
@@ -31,6 +36,20 @@ export const fetchOrderByNumber = createAsyncThunk(
   async (orderNumber: number) => {
     const response = await getOrderByNumberApi(orderNumber);
     return response.orders[0];
+  }
+);
+
+
+// отправка заказа на сервер
+export const placeOrder = createAsyncThunk(
+  'order/placeOrder',
+  async (ingredientIds: string[], thunkAPI) => {
+    try {
+      const response = await orderBurgerApi(ingredientIds);
+      return response.order;
+    } catch (err) {
+      return thunkAPI.rejectWithValue('Ошибка при оформлении заказа');
+    }
   }
 );
 
@@ -72,7 +91,19 @@ const orderSlice = createSlice({
       })
       .addCase(fetchOrderByNumber.rejected, (state, action) => {
         state.orderRequest = false;
-        state.error = 'Ошибка загрузки заказов';
+        state.error = 'Ошибка загрузки заказа';
+      })
+      .addCase(placeOrder.pending, (state) => {
+        state.orderRequest = true;
+        state.error = null;
+      })
+      .addCase(placeOrder.fulfilled, (state, action) => {
+        state.orderData = action.payload;
+        state.orderRequest = false;
+      })
+      .addCase(placeOrder.rejected, (state, action) => {
+        state.orderRequest = false;
+        state.error = 'Ошибка отправки заказа';
       });
   }
 });
