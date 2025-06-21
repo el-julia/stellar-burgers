@@ -9,11 +9,6 @@ type TOrderState = {
   error: string | null;
 };
 
-type TOrderResponse = {
-  order: TOrder;
-  name: string;
-};
-
 const initialState: TOrderState = {
   orders: [],
   orderData: null,
@@ -24,10 +19,7 @@ const initialState: TOrderState = {
 // подгружаю список заказов
 export const fetchOrders = createAsyncThunk<TOrder[]>(
   'orders/fetchOrders',
-  async () => {
-    const response = await getOrdersApi();
-    return response;
-  }
+  async () => await getOrdersApi()
 );
 
 // подгружаем один заказ
@@ -38,7 +30,6 @@ export const fetchOrderByNumber = createAsyncThunk(
     return response.orders[0];
   }
 );
-
 
 // отправка заказа на сервер
 export const placeOrder = createAsyncThunk(
@@ -57,7 +48,7 @@ const orderSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: {
-    clearOrderData: (state, action: PayloadAction<string>) => {
+    clearOrderData: (state) => {
       state.orderData = null;
     }
   },
@@ -76,7 +67,7 @@ const orderSlice = createSlice({
         state.orders = action.payload;
         state.orderRequest = false;
       })
-      .addCase(fetchOrders.rejected, (state, action) => {
+      .addCase(fetchOrders.rejected, (state) => {
         state.orderRequest = false;
         state.error = 'Ошибка загрузки заказов';
       })
@@ -89,7 +80,7 @@ const orderSlice = createSlice({
         state.orderData = action.payload;
         state.orderRequest = false;
       })
-      .addCase(fetchOrderByNumber.rejected, (state, action) => {
+      .addCase(fetchOrderByNumber.rejected, (state) => {
         state.orderRequest = false;
         state.error = 'Ошибка загрузки заказа';
       })
@@ -101,7 +92,7 @@ const orderSlice = createSlice({
         state.orderData = action.payload;
         state.orderRequest = false;
       })
-      .addCase(placeOrder.rejected, (state, action) => {
+      .addCase(placeOrder.rejected, (state) => {
         state.orderRequest = false;
         state.error = 'Ошибка отправки заказа';
       });
