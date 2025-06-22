@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { getUser } from '../../services/slices/profile-slices';
 import { ProtectedRoute } from '../protected-route';
+import { fetchIngredients } from '../../services/slices/ingredients-slices';
 
 const App = () => {
   const location = useLocation();
@@ -25,6 +26,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getUser());
+    dispatch(fetchIngredients());
   }, [dispatch]);
 
   return (
