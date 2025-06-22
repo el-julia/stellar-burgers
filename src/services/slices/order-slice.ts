@@ -16,8 +16,7 @@ const initialState: TOrderState = {
   error: null
 };
 
-// подгружаю список заказов
-export const fetchOrders = createAsyncThunk<TOrder[]>(
+export const fetchOrders = createAsyncThunk(
   'orders/fetchOrders',
   async () => await getOrdersApi()
 );
@@ -69,7 +68,6 @@ const orderSlice = createSlice({
         state.orderRequest = false;
         state.error = 'Ошибка загрузки заказов';
       })
-
       .addCase(fetchOrderByNumber.pending, (state) => {
         state.orderRequest = true;
         state.error = null;
