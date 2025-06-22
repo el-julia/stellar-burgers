@@ -1,8 +1,11 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useAppSelector, useDispatch } from '../../services/store';
-import { selectConstructorItems } from '../../services/slices/burger-constructor';
+import {
+  clearConstructor,
+  selectConstructorItems
+} from '../../services/slices/burger-constructor';
 import {
   clearOrderData,
   placeOrder,
@@ -38,6 +41,10 @@ export const BurgerConstructor: FC = () => {
 
     dispatch(placeOrder(ingredientsIds));
   };
+
+  useEffect(() => {
+    dispatch(clearConstructor());
+  }, [orderModalData]);
 
   const closeOrderModal = () => {
     dispatch(clearOrderData());
