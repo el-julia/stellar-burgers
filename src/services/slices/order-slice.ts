@@ -1,6 +1,6 @@
 import { TOrder } from '@utils-types';
 import { getOrderByNumberApi, getOrdersApi, orderBurgerApi } from '@api';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 type TOrderState = {
   orders: TOrder[];
@@ -22,7 +22,6 @@ export const fetchOrders = createAsyncThunk<TOrder[]>(
   async () => await getOrdersApi()
 );
 
-// подгружаем один заказ
 export const fetchOrderByNumber = createAsyncThunk(
   'orders/fetchOrderByNumber',
   async (orderNumber: number) => {
@@ -31,7 +30,6 @@ export const fetchOrderByNumber = createAsyncThunk(
   }
 );
 
-// отправка заказа на сервер
 export const placeOrder = createAsyncThunk(
   'order/placeOrder',
   async (ingredientIds: string[], thunkAPI) => {
