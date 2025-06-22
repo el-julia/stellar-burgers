@@ -5,9 +5,9 @@ import { TIngredient } from '@utils-types';
 import {
   fetchOrderByNumber,
   selectOrderData
-} from '../../services/slices/order-slice';
+} from '../../services/slices/order';
 import { useAppSelector, useDispatch } from '../../services/store';
-import { selectIngredients } from '../../services/slices/ingredients-slices';
+import { selectIngredients } from '../../services/slices/ingredients';
 import { useParams } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {

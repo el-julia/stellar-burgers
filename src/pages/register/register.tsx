@@ -5,7 +5,7 @@ import {
   register,
   selectErrorMessage,
   selectIsLoading
-} from '../../services/slices/profile-slices';
+} from '../../services/slices/profile';
 import { Preloader } from '@ui';
 
 export const Register: FC = () => {

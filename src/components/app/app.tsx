@@ -15,9 +15,9 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
-import { getUser } from '../../services/slices/profile-slices';
+import { getUser } from '../../services/slices/profile';
 import { ProtectedRoute } from '../protected-route';
-import { fetchIngredients } from '../../services/slices/ingredients-slices';
+import { fetchIngredients } from '../../services/slices/ingredients';
 
 const App = () => {
   const location = useLocation();

@@ -2,13 +2,13 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useAppSelector, useDispatch } from '../../services/store';
-import { selectConstructorItems } from '../../services/slices/burgerConstructor-slices';
+import { selectConstructorItems } from '../../services/slices/burger-constructor';
 import {
   clearOrderData,
   placeOrder,
   selectOrderData,
   selectOrderRequest
-} from '../../services/slices/order-slice';
+} from '../../services/slices/order';
 
 export const BurgerConstructor: FC = () => {
   const constructorItems = useAppSelector(selectConstructorItems);

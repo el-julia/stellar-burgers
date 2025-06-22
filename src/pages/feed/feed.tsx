@@ -7,7 +7,7 @@ import {
   fetchFeed,
   selectIsLoading,
   selectOrders
-} from '../../services/slices/feed-slices';
+} from '../../services/slices/feed';
 
 export const Feed: FC = () => {
   const orders: TOrder[] = useAppSelector(selectOrders);

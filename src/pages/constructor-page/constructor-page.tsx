@@ -3,7 +3,7 @@ import styles from './constructor-page.module.css';
 import { BurgerConstructor, BurgerIngredients } from '@components';
 import { Preloader } from '@ui';
 import { FC } from 'react';
-import { selectIngredients } from '../../services/slices/ingredients-slices';
+import { selectIngredients } from '../../services/slices/ingredients';
 import { useAppSelector } from '../../services/store';
 
 export const ConstructorPage: FC = () => {
