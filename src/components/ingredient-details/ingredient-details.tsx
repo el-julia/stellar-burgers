@@ -8,13 +8,13 @@ import { useParams } from 'react-router-dom';
 export const IngredientDetails: FC = () => {
   const { id } = useParams();
 
-  const ingredientData = useAppSelector(selectIngredients);
+  const ingredients = useAppSelector(selectIngredients);
 
-  if (!ingredientData || ingredientData.length <= 0 || !id) {
+  if (!ingredients || !id) {
     return <Preloader />;
   }
 
-  let ingredient = ingredientData.find((ingredient) => ingredient._id == id);
+  let ingredient = ingredients.find((ingredient) => ingredient._id == id);
   if (!ingredient) {
     return <Preloader />;
   }

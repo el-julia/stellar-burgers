@@ -3,17 +3,15 @@ import styles from './constructor-page.module.css';
 import { BurgerConstructor, BurgerIngredients } from '@components';
 import { Preloader } from '@ui';
 import { FC } from 'react';
-import { selectIsLoading } from '../../services/slices/ingredients-slices';
-import { useAppSelector, useDispatch } from '../../services/store';
+import { selectIngredients } from '../../services/slices/ingredients-slices';
+import { useAppSelector } from '../../services/store';
 
 export const ConstructorPage: FC = () => {
-  const isIngredientsLoading = useAppSelector(selectIsLoading);
+  const ingredients = useAppSelector(selectIngredients);
 
   return (
     <>
-      {isIngredientsLoading ? (
-        <Preloader />
-      ) : (
+      {ingredients ? (
         <main className={styles.containerMain}>
           <h1
             className={`${styles.title} text text_type_main-large mt-10 mb-5 pl-5`}
@@ -25,6 +23,8 @@ export const ConstructorPage: FC = () => {
             <BurgerConstructor />
           </div>
         </main>
+      ) : (
+        <Preloader />
       )}
     </>
   );
