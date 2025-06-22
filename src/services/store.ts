@@ -1,8 +1,4 @@
-import {
-  ActionCreatorWithPayload,
-  combineReducers,
-  configureStore
-} from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import ingredients from './slices/ingredients';
 import burgerConstructor from './slices/burger-constructor';
 import order from './slices/order';
@@ -15,6 +11,7 @@ import {
   useSelector as selectorHook
 } from 'react-redux';
 import login from './slices/login';
+import register from './slices/register';
 
 export const rootReducer = combineReducers({
   ingredients: ingredients.reducer,
@@ -22,7 +19,8 @@ export const rootReducer = combineReducers({
   orders: order.reducer,
   profile: profile.reducer,
   feed: feed.reducer,
-  login: login.reducer
+  login: login.reducer,
+  register: register.reducer
 });
 
 const store = configureStore({

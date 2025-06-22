@@ -3,6 +3,7 @@ import { getUserApi, registerUserApi, TRegisterData } from '@api';
 import { TUser } from '@utils-types';
 import { setCookie } from '../../utils/cookie';
 import { login } from './login';
+import { register } from './register';
 
 type TProfileState = {
   isLoading: boolean;
@@ -12,11 +13,6 @@ const initialState: TProfileState = {
   isLoading: true,
   user: null
 };
-
-export const register = createAsyncThunk(
-  'profile/register',
-  async (data: TRegisterData) => await registerUserApi(data)
-);
 
 export const getUser = createAsyncThunk(
   'profile/user',
@@ -33,18 +29,6 @@ const profileSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(register.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
-        setCookie('accessToken', action.payload.accessToken);
-        state.isLoading = false;
-      })
-      .addCase(register.rejected, (state) => {
-        state.isLoading = false;
-      })
       .addCase(getUser.pending, (state) => {
         state.isLoading = true;
       })
@@ -55,7 +39,8 @@ const profileSlice = createSlice({
       .addCase(getUser.rejected, (state) => {
         state.isLoading = false;
       })
-      .addCase(login.pending, (state, action) => {
+
+      .addCase(login.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
@@ -64,7 +49,20 @@ const profileSlice = createSlice({
         setCookie('accessToken', action.payload.accessToken);
         state.isLoading = false;
       })
-      .addCase(login.rejected, (state, action) => {
+      .addCase(login.rejected, (state) => {
+        state.isLoading = false;
+      })
+
+      .addCase(register.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
+        setCookie('accessToken', action.payload.accessToken);
+        state.isLoading = false;
+      })
+      .addCase(register.rejected, (state) => {
         state.isLoading = false;
       });
   }
