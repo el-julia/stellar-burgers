@@ -104,7 +104,7 @@ const App = () => {
             path='/feed/:number'
             element={
               <Modal
-                title='Заменить заголовок'
+                title='Детали заказа'
                 onClose={() => window.history.back()}
               >
                 <OrderInfo />
@@ -114,12 +114,14 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <Modal
-                title='Заменить заголовок'
-                onClose={() => window.history.back()}
-              >
-                <OrderInfo />
-              </Modal>
+              <ProtectedRoute requireAuth>
+                <Modal
+                  title='Детали заказа'
+                  onClose={() => window.history.back()}
+                >
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
           />
         </Routes>

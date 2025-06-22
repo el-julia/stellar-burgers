@@ -1,14 +1,26 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { Preloader } from '@ui';
 import { OrderInfoUI } from '@ui';
 import { TIngredient } from '@utils-types';
-import { selectOrderData } from '../../services/slices/order-slice';
-import { useAppSelector } from '../../services/store';
+import {
+  fetchOrderByNumber,
+  selectOrderData
+} from '../../services/slices/order-slice';
+import { useAppSelector, useDispatch } from '../../services/store';
 import { selectIngredients } from '../../services/slices/ingredients-slices';
+import { useParams } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {
+  const { number } = useParams();
   const orderData = useAppSelector(selectOrderData);
   const ingredients = useAppSelector(selectIngredients);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (number) {
+      dispatch(fetchOrderByNumber(Number(number)));
+    }
+  }, []);
 
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
