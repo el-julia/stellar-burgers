@@ -1,33 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import {
-  getUserApi,
-  loginUserApi,
-  registerUserApi,
-  TLoginData,
-  TRegisterData
-} from '@api';
+import { getUserApi, registerUserApi, TRegisterData } from '@api';
 import { TUser } from '@utils-types';
 import { setCookie } from '../../utils/cookie';
+import { login } from './login';
 
 type TProfileState = {
   isLoading: boolean;
   user: TUser | null;
-  errorMessage: string | null;
 };
 const initialState: TProfileState = {
   isLoading: true,
-  user: null,
-  errorMessage: null
+  user: null
 };
 
 export const register = createAsyncThunk(
   'profile/register',
   async (data: TRegisterData) => await registerUserApi(data)
-);
-
-export const login = createAsyncThunk(
-  'profile/login',
-  async (data: TLoginData) => await loginUserApi(data)
 );
 
 export const getUser = createAsyncThunk(
@@ -41,14 +29,12 @@ const profileSlice = createSlice({
   reducers: {},
   selectors: {
     selectUser: (sliceState) => sliceState.user,
-    selectIsLoading: (sliceState) => sliceState.isLoading,
-    selectErrorMessage: (sliceState) => sliceState.errorMessage
+    selectIsLoading: (sliceState) => sliceState.isLoading
   },
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {
         state.isLoading = true;
-        state.errorMessage = null;
       })
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
@@ -56,13 +42,21 @@ const profileSlice = createSlice({
         setCookie('accessToken', action.payload.accessToken);
         state.isLoading = false;
       })
-      .addCase(register.rejected, (state, action) => {
+      .addCase(register.rejected, (state) => {
         state.isLoading = false;
-        state.errorMessage = action.error.message ?? null;
       })
-      .addCase(login.pending, (state) => {
+      .addCase(getUser.pending, (state) => {
         state.isLoading = true;
-        state.errorMessage = null;
+      })
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.isLoading = false;
+      })
+      .addCase(getUser.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(login.pending, (state, action) => {
+        state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.user = action.payload.user;
@@ -72,23 +66,9 @@ const profileSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
-        state.errorMessage = action.error.message ?? null;
-      })
-      .addCase(getUser.pending, (state) => {
-        state.isLoading = true;
-        state.errorMessage = null;
-      })
-      .addCase(getUser.fulfilled, (state, action) => {
-        state.user = action.payload.user;
-        state.isLoading = false;
-      })
-      .addCase(getUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.errorMessage = action.error.message ?? null;
       });
   }
 });
-export const { selectUser, selectIsLoading, selectErrorMessage } =
-  profileSlice.selectors;
+export const { selectUser, selectIsLoading } = profileSlice.selectors;
 
 export default profileSlice;

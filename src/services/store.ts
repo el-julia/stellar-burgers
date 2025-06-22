@@ -14,13 +14,15 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
+import login from './slices/login';
 
 export const rootReducer = combineReducers({
   ingredients: ingredients.reducer,
   burgerConstructor: burgerConstructor.reducer,
   orders: order.reducer,
   profile: profile.reducer,
-  feed: feed.reducer
+  feed: feed.reducer,
+  login: login.reducer
 });
 
 const store = configureStore({

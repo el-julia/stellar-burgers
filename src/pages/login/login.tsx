@@ -1,29 +1,23 @@
 import { FC, SyntheticEvent, useState } from 'react';
 import { LoginUI } from '@ui-pages';
 import { useAppSelector, useDispatch } from '../../services/store';
-import {
-  getUser,
-  login,
-  selectErrorMessage,
-  selectIsLoading
-} from '../../services/slices/profile';
+import { selectIsLoading } from '../../services/slices/profile';
 import { Preloader } from '@ui';
+import loginSlice, { login } from '../../services/slices/login';
 
 export const Login: FC = () => {
   const isLoading = useAppSelector(selectIsLoading);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const errorMessage = useAppSelector(selectErrorMessage);
+  const isError = useAppSelector(loginSlice.selectors.selectIsError);
 
   const handleSubmit = (e: SyntheticEvent) => {
     let loginData = {
       email: email,
       password: password
     };
-    dispatch(login(loginData)).then(() => {
-      dispatch(getUser());
-    });
+    dispatch(login(loginData));
     e.preventDefault();
   };
 
@@ -31,7 +25,7 @@ export const Login: FC = () => {
     <Preloader />
   ) : (
     <LoginUI
-      errorText={errorMessage ?? undefined}
+      errorText={isError ? 'Неверный логин или пароль' : ''}
       email={email}
       setEmail={setEmail}
       password={password}
