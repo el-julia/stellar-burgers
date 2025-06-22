@@ -1,13 +1,11 @@
-import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { FC, SyntheticEvent, useState } from 'react';
 import { RegisterUI } from '@ui-pages';
 import { useAppSelector, useDispatch } from '../../services/store';
 import {
   register,
   selectErrorMessage,
-  selectIsLoading,
-  selectUser
+  selectIsLoading
 } from '../../services/slices/profile-slices';
-import { useNavigate } from 'react-router-dom';
 import { Preloader } from '@ui';
 
 export const Register: FC = () => {
@@ -16,15 +14,7 @@ export const Register: FC = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const errorMessage = useAppSelector(selectErrorMessage);
-  const user = useAppSelector(selectUser);
-  const navigate = useNavigate();
   const isLoading = useAppSelector(selectIsLoading);
-
-  useEffect(() => {
-    if (user) {
-      navigate('/profile', { replace: true });
-    }
-  }, [user, navigate]);
 
   const handleSubmit = (e: SyntheticEvent) => {
     let data = {
