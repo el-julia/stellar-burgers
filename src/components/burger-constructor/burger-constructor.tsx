@@ -9,16 +9,26 @@ import {
   selectOrderData,
   selectOrderRequest
 } from '../../services/slices/order';
+import { selectUser } from '../../services/slices/profile';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const constructorItems = useAppSelector(selectConstructorItems);
   const orderRequest = useAppSelector(selectOrderRequest);
   const orderModalData = useAppSelector(selectOrderData);
+  const user = useAppSelector(selectUser);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
+
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
     const ingredientsIds = [
       constructorItems.bun._id,
       constructorItems.ingredients.map((i) => i._id),
