@@ -10,7 +10,7 @@ import {
   selectOrderRequest
 } from '../../services/slices/order';
 import { selectUser } from '../../services/slices/profile';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const constructorItems = useAppSelector(selectConstructorItems);
@@ -18,6 +18,7 @@ export const BurgerConstructor: FC = () => {
   const orderModalData = useAppSelector(selectOrderData);
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const dispatch = useDispatch();
 
@@ -25,7 +26,7 @@ export const BurgerConstructor: FC = () => {
     if (!constructorItems.bun || orderRequest) return;
 
     if (!user) {
-      navigate('/login');
+      navigate('/login', { state: { from: location } });
       return;
     }
 

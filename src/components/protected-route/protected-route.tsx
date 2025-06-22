@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../services/store';
 import { selectIsLoading, selectUser } from '../../services/slices/profile';
 import { Preloader } from '@ui';
@@ -15,16 +15,20 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
 }: ProtectedRouteProps) => {
   const user = useAppSelector(selectUser);
   const isLoading = useAppSelector(selectIsLoading);
+  const location = useLocation();
 
   if (isLoading) {
     return <Preloader />;
   }
 
   if (requireAuth && !user) {
-    return <Navigate replace to='/login' />;
+    return <Navigate to='/login' state={{ from: location }} />;
   }
 
   if (!requireAuth && user) {
+    if (location.state?.from) {
+      return <Navigate replace to={location.state.from} />;
+    }
     return <Navigate replace to='/profile' />;
   }
 
