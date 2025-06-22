@@ -15,7 +15,7 @@ type TProfileState = {
   errorMessage: string | null;
 };
 const initialState: TProfileState = {
-  isLoading: false,
+  isLoading: true,
   user: null,
   errorMessage: null
 };

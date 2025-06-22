@@ -1,7 +1,11 @@
 import React, { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../../services/store';
-import { selectUser } from '../../services/slices/profile-slices';
+import {
+  selectIsLoading,
+  selectUser
+} from '../../services/slices/profile-slices';
+import { Preloader } from '@ui';
 
 interface ProtectedRouteProps {
   requireAuth?: boolean;
@@ -13,6 +17,11 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   children
 }: ProtectedRouteProps) => {
   const user = useAppSelector(selectUser);
+  const isLoading = useAppSelector(selectIsLoading);
+
+  if (isLoading) {
+    return <Preloader />;
+  }
 
   if (requireAuth && !user) {
     return <Navigate replace to='/login' />;
