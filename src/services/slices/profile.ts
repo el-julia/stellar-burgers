@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getUserApi, registerUserApi, TRegisterData } from '@api';
+import { getUserApi, logoutApi, registerUserApi, TRegisterData } from '@api';
 import { TUser } from '@utils-types';
-import { setCookie } from '../../utils/cookie';
+import { deleteCookie, setCookie } from '../../utils/cookie';
 import { login } from './login';
 import { register } from './register';
 
@@ -17,6 +17,11 @@ const initialState: TProfileState = {
 export const getUser = createAsyncThunk(
   'profile/user',
   async () => await getUserApi()
+);
+
+export const logout = createAsyncThunk(
+  'profile/logout',
+  async () => await logoutApi()
 );
 
 const profileSlice = createSlice({
@@ -37,6 +42,19 @@ const profileSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getUser.rejected, (state) => {
+        state.isLoading = false;
+      })
+
+      .addCase(logout.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(logout.fulfilled, (state, action) => {
+        state.user = null;
+        localStorage.removeItem('refreshToken');
+        deleteCookie('accessToken');
+        state.isLoading = false;
+      })
+      .addCase(logout.rejected, (state) => {
         state.isLoading = false;
       })
 
