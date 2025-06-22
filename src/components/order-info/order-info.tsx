@@ -6,14 +6,14 @@ import {
   fetchOrderByNumber,
   selectOrderData
 } from '../../services/slices/order';
-import { useAppSelector, useDispatch } from '../../services/store';
+import { useSelector, useDispatch } from '../../services/store';
 import { selectIngredients } from '../../services/slices/ingredients';
 import { useParams } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams();
-  const orderData = useAppSelector(selectOrderData);
-  const ingredients = useAppSelector(selectIngredients);
+  const orderData = useSelector(selectOrderData);
+  const ingredients = useSelector(selectIngredients);
   const dispatch = useDispatch();
 
   useEffect(() => {

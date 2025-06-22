@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { OrderCardProps } from './type';
 import { TIngredient } from '@utils-types';
 import { OrderCardUI } from '@ui';
-import { useAppSelector } from '../../services/store';
+import { useSelector } from '../../services/store';
 import { selectIngredients } from '../../services/slices/ingredients';
 
 const maxIngredients = 6;
@@ -12,7 +12,7 @@ const maxIngredients = 6;
 export const OrderCard: FC<OrderCardProps> = memo(({ order }) => {
   const location = useLocation();
 
-  const ingredients = useAppSelector(selectIngredients);
+  const ingredients = useSelector(selectIngredients);
 
   const orderInfo = useMemo(() => {
     if (!ingredients) return null;

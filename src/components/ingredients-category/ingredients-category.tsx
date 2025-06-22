@@ -2,7 +2,7 @@ import { forwardRef, useMemo } from 'react';
 import { TIngredientsCategoryProps } from './type';
 import { TIngredient } from '@utils-types';
 import { IngredientsCategoryUI } from '../ui/ingredients-category';
-import { useAppSelector } from '../../services/store';
+import { useSelector } from '../../services/store';
 
 import { selectConstructorItems } from '../../services/slices/burger-constructor';
 
@@ -10,7 +10,7 @@ export const IngredientsCategory = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryProps
 >(({ title, titleRef, ingredients }, ref) => {
-  const selectedIngredients = useAppSelector(selectConstructorItems);
+  const selectedIngredients = useSelector(selectConstructorItems);
 
   const ingredientsCounters = useMemo(() => {
     const { bun, ingredients } = selectedIngredients;

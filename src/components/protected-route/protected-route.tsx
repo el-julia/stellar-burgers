@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../services/store';
+import { useSelector } from '../../services/store';
 import { selectIsLoading, selectUser } from '../../services/slices/profile';
 import { Preloader } from '@ui';
 
@@ -13,8 +13,8 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
   requireAuth,
   children
 }: ProtectedRouteProps) => {
-  const user = useAppSelector(selectUser);
-  const isLoading = useAppSelector(selectIsLoading);
+  const user = useSelector(selectUser);
+  const isLoading = useSelector(selectIsLoading);
   const location = useLocation();
 
   if (isLoading) {

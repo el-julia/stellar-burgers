@@ -1,7 +1,7 @@
 import { FC, useEffect, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { useAppSelector, useDispatch } from '../../services/store';
+import { useSelector, useDispatch } from '../../services/store';
 import {
   clearConstructor,
   selectConstructorItems
@@ -16,10 +16,10 @@ import { selectUser } from '../../services/slices/profile';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
-  const constructorItems = useAppSelector(selectConstructorItems);
-  const orderRequest = useAppSelector(selectOrderRequest);
-  const orderModalData = useAppSelector(selectOrderData);
-  const user = useAppSelector(selectUser);
+  const constructorItems = useSelector(selectConstructorItems);
+  const orderRequest = useSelector(selectOrderRequest);
+  const orderModalData = useSelector(selectOrderData);
+  const user = useSelector(selectUser);
   const navigate = useNavigate();
   const location = useLocation();
 

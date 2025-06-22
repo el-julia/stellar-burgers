@@ -2,7 +2,7 @@ import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
 import { TOrder } from '@utils-types';
 import { FC, useEffect } from 'react';
-import { useAppSelector, useDispatch } from '../../services/store';
+import { useSelector, useDispatch } from '../../services/store';
 import {
   fetchFeed,
   selectIsLoading,
@@ -10,9 +10,9 @@ import {
 } from '../../services/slices/feed';
 
 export const Feed: FC = () => {
-  const orders: TOrder[] = useAppSelector(selectOrders);
+  const orders: TOrder[] = useSelector(selectOrders);
   const dispatch = useDispatch();
-  const isLoading = useAppSelector(selectIsLoading);
+  const isLoading = useSelector(selectIsLoading);
 
   useEffect(() => {
     dispatch(fetchFeed());

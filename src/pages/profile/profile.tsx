@@ -1,11 +1,11 @@
 import { ProfileUI } from '@ui-pages';
 import React, { FC, SyntheticEvent, useEffect, useState } from 'react';
-import { useAppSelector, useDispatch } from '../../services/store';
+import { useSelector, useDispatch } from '../../services/store';
 import { selectUser, update } from '../../services/slices/profile';
 import { TRegisterData } from '@api';
 
 export const Profile: FC = () => {
-  const user = useAppSelector(selectUser);
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   if (!user) {
