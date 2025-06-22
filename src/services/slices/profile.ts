@@ -14,20 +14,11 @@ const initialState: TProfileState = {
   user: null
 };
 
-export const getUser = createAsyncThunk(
-  'profile/user',
-  async () => await getUserApi()
-);
+export const getUser = createAsyncThunk('profile/user', getUserApi);
 
-export const logout = createAsyncThunk(
-  'profile/logout',
-  async () => await logoutApi()
-);
+export const logout = createAsyncThunk('profile/logout', logoutApi);
 
-export const update = createAsyncThunk(
-  'profile/update',
-  async (data: Partial<TRegisterData>) => await updateUserApi(data)
-);
+export const update = createAsyncThunk('profile/update', updateUserApi);
 
 const profileSlice = createSlice({
   name: 'profile',

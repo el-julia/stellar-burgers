@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { loginUserApi, TLoginData } from '@api';
+import { loginUserApi } from '@api';
 
 type TLoginState = {
   isError: boolean;
@@ -8,10 +8,7 @@ const initialState: TLoginState = {
   isError: false
 };
 
-export const login = createAsyncThunk(
-  'profile/login',
-  async (data: TLoginData) => await loginUserApi(data)
-);
+export const login = createAsyncThunk('profile/login', loginUserApi);
 
 const loginSlice = createSlice({
   name: 'login',

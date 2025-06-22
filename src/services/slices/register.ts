@@ -11,10 +11,7 @@ const initialState: TProfileState = {
   isError: false
 };
 
-export const register = createAsyncThunk(
-  'profile/register',
-  async (data: TRegisterData) => await registerUserApi(data)
-);
+export const register = createAsyncThunk('profile/register', registerUserApi);
 
 const registerSlice = createSlice({
   name: 'register',

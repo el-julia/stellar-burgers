@@ -6,20 +6,15 @@ type TOrderState = {
   orders: TOrder[];
   orderData: TOrder | null;
   orderRequest: boolean;
-  error: string | null;
 };
 
 const initialState: TOrderState = {
   orders: [],
   orderData: null,
-  orderRequest: false,
-  error: null
+  orderRequest: false
 };
 
-export const fetchOrders = createAsyncThunk(
-  'orders/fetchOrders',
-  async () => await getOrdersApi()
-);
+export const fetchOrders = createAsyncThunk('orders/fetchOrders', getOrdersApi);
 
 export const fetchOrderByNumber = createAsyncThunk(
   'orders/fetchOrderByNumber',
@@ -31,13 +26,9 @@ export const fetchOrderByNumber = createAsyncThunk(
 
 export const placeOrder = createAsyncThunk(
   'order/placeOrder',
-  async (ingredientIds: string[], thunkAPI) => {
-    try {
-      const response = await orderBurgerApi(ingredientIds);
-      return response.order;
-    } catch (err) {
-      return thunkAPI.rejectWithValue('Ошибка при оформлении заказа');
-    }
+  async (ingredientIds: string[]) => {
+    const response = await orderBurgerApi(ingredientIds);
+    return response.order;
   }
 );
 
@@ -58,7 +49,6 @@ const orderSlice = createSlice({
     builder
       .addCase(fetchOrders.pending, (state) => {
         state.orderRequest = true;
-        state.error = null;
       })
       .addCase(fetchOrders.fulfilled, (state, action) => {
         state.orders = action.payload;
@@ -66,11 +56,9 @@ const orderSlice = createSlice({
       })
       .addCase(fetchOrders.rejected, (state) => {
         state.orderRequest = false;
-        state.error = 'Ошибка загрузки заказов';
       })
       .addCase(fetchOrderByNumber.pending, (state) => {
         state.orderRequest = true;
-        state.error = null;
       })
       .addCase(fetchOrderByNumber.fulfilled, (state, action) => {
         state.orderData = action.payload;
@@ -78,11 +66,9 @@ const orderSlice = createSlice({
       })
       .addCase(fetchOrderByNumber.rejected, (state) => {
         state.orderRequest = false;
-        state.error = 'Ошибка загрузки заказа';
       })
       .addCase(placeOrder.pending, (state) => {
         state.orderRequest = true;
-        state.error = null;
       })
       .addCase(placeOrder.fulfilled, (state, action) => {
         state.orderData = action.payload;
@@ -90,7 +76,6 @@ const orderSlice = createSlice({
       })
       .addCase(placeOrder.rejected, (state) => {
         state.orderRequest = false;
-        state.error = 'Ошибка отправки заказа';
       });
   }
 });

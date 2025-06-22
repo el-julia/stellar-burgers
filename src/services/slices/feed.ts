@@ -22,7 +22,7 @@ export const fetchFeed = createAsyncThunk<{
   orders: TOrder[];
   total: number;
   totalToday: number;
-}>('orders/fetchFeed', async () => await getFeedsApi());
+}>('orders/fetchFeed', getFeedsApi);
 
 const feedSlice = createSlice({
   name: 'feed',
