@@ -4,6 +4,7 @@ import { BurgerConstructorUI } from '@ui';
 import { useAppSelector, useDispatch } from '../../services/store';
 import { selectConstructorItems } from '../../services/slices/burgerConstructor-slices';
 import {
+  clearOrderData,
   placeOrder,
   selectOrderData,
   selectOrderRequest
@@ -27,7 +28,9 @@ export const BurgerConstructor: FC = () => {
     dispatch(placeOrder(ingredientsIds));
   };
 
-  const closeOrderModal = () => {};
+  const closeOrderModal = () => {
+    dispatch(clearOrderData());
+  };
 
   const price = useMemo(() => {
     let bunPrice = constructorItems.bun ? constructorItems.bun.price * 2 : 0;
