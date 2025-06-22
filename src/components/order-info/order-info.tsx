@@ -1,17 +1,15 @@
 import { FC, useMemo } from 'react';
-import { Preloader } from '../ui/preloader';
-import { OrderInfoUI } from '../ui/order-info';
+import { Preloader } from '@ui';
+import { OrderInfoUI } from '@ui';
 import { TIngredient } from '@utils-types';
 import { selectOrderData } from '../../services/slices/order-slice';
 import { useAppSelector } from '../../services/store';
 import { selectIngredients } from '../../services/slices/ingredients-slices';
 
 export const OrderInfo: FC = () => {
-  /** TODO: взять переменные orderData и ingredients из стора сделала */
   const orderData = useAppSelector(selectOrderData);
   const ingredients = useAppSelector(selectIngredients);
 
-  /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
