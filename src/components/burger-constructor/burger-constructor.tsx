@@ -43,7 +43,9 @@ export const BurgerConstructor: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(clearConstructor());
+    if (orderModalData) {
+      dispatch(clearConstructor());
+    }
   }, [orderModalData]);
 
   const closeOrderModal = () => {
