@@ -18,6 +18,7 @@ import { useDispatch } from '../../services/store';
 import { getUser } from '../../services/slices/profile';
 import { ProtectedRoute } from '../protected-route';
 import { fetchIngredients } from '../../services/slices/ingredients';
+import { FeedOrderModal } from '../modal/feedOrderModal';
 
 const App = () => {
   const location = useLocation();
@@ -108,17 +109,7 @@ const App = () => {
               </Modal>
             }
           />
-          <Route
-            path='/feed/:number'
-            element={
-              <Modal
-                title='Детали заказа'
-                onClose={() => window.history.back()}
-              >
-                <OrderInfo />
-              </Modal>
-            }
-          />
+          <Route path='/feed/:number' element={<FeedOrderModal />} />
           <Route
             path='/profile/orders/:number'
             element={
