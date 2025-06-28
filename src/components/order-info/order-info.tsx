@@ -1,17 +1,18 @@
 import { FC, useEffect, useMemo } from 'react';
-import { Preloader } from '@ui';
-import { OrderInfoUI } from '@ui';
+import { OrderInfoUI, Preloader } from '@ui';
 import { TIngredient } from '@utils-types';
 import {
   fetchOrderByNumber,
-  selectOrderData
+  selectOrderData,
+  selectOrderRequest
 } from '../../services/slices/order';
-import { useSelector, useDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { selectIngredients } from '../../services/slices/ingredients';
 import { useParams } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams();
+  const orderRequest = useSelector(selectOrderRequest);
   const orderData = useSelector(selectOrderData);
   const ingredients = useSelector(selectIngredients);
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export const OrderInfo: FC = () => {
   }, []);
 
   const orderInfo = useMemo(() => {
-    if (!orderData || !ingredients) return null;
+    if (orderRequest || !orderData || !ingredients) return null;
 
     const date = new Date(orderData.createdAt);
 
@@ -61,7 +62,7 @@ export const OrderInfo: FC = () => {
       date,
       total
     };
-  }, [orderData, ingredients]);
+  }, [orderRequest, orderData, ingredients]);
 
   if (!orderInfo) {
     return <Preloader />;
