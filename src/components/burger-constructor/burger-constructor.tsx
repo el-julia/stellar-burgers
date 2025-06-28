@@ -1,16 +1,16 @@
 import { FC, useEffect, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { useSelector, useDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import {
   clearConstructor,
   selectConstructorItems
 } from '../../services/slices/burger-constructor';
 import {
-  clearOrderData,
+  clearPlacedOrderData,
   placeOrder,
-  selectOrderData,
-  selectOrderRequest
+  selectOrderRequest,
+  selectPlacedOrderData
 } from '../../services/slices/order';
 import { selectUser } from '../../services/slices/profile';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -18,7 +18,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 export const BurgerConstructor: FC = () => {
   const constructorItems = useSelector(selectConstructorItems);
   const orderRequest = useSelector(selectOrderRequest);
-  const orderModalData = useSelector(selectOrderData);
+  const orderModalData = useSelector(selectPlacedOrderData);
   const user = useSelector(selectUser);
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,7 +49,7 @@ export const BurgerConstructor: FC = () => {
   }, [orderModalData]);
 
   const closeOrderModal = () => {
-    dispatch(clearOrderData());
+    dispatch(clearPlacedOrderData());
   };
 
   const price = useMemo(() => {

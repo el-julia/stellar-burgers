@@ -5,12 +5,14 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 type TOrderState = {
   orders: TOrder[];
   orderData: TOrder | null;
+  placedOrderData: TOrder | null;
   orderRequest: boolean;
 };
 
 const initialState: TOrderState = {
   orders: [],
   orderData: null,
+  placedOrderData: null,
   orderRequest: false
 };
 
@@ -36,13 +38,14 @@ const orderSlice = createSlice({
   name: 'orders',
   initialState,
   reducers: {
-    clearOrderData: (state) => {
-      state.orderData = null;
+    clearPlacedOrderData: (state) => {
+      state.placedOrderData = null;
     }
   },
   selectors: {
     selectOrders: (state) => state.orders,
     selectOrderData: (state) => state.orderData,
+    selectPlacedOrderData: (state) => state.placedOrderData,
     selectOrderRequest: (state) => state.orderRequest
   },
   extraReducers: (builder) => {
@@ -71,7 +74,7 @@ const orderSlice = createSlice({
         state.orderRequest = true;
       })
       .addCase(placeOrder.fulfilled, (state, action) => {
-        state.orderData = action.payload;
+        state.placedOrderData = action.payload;
         state.orderRequest = false;
       })
       .addCase(placeOrder.rejected, (state) => {
@@ -80,9 +83,13 @@ const orderSlice = createSlice({
   }
 });
 
-export const { clearOrderData } = orderSlice.actions;
+export const { clearPlacedOrderData } = orderSlice.actions;
 
-export const { selectOrders, selectOrderData, selectOrderRequest } =
-  orderSlice.selectors;
+export const {
+  selectOrders,
+  selectOrderData,
+  selectPlacedOrderData,
+  selectOrderRequest
+} = orderSlice.selectors;
 
 export default orderSlice;
