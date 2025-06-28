@@ -20,6 +20,7 @@ import { ProtectedRoute } from '../protected-route';
 import { fetchIngredients } from '../../services/slices/ingredients';
 import { OrderDetailsModal } from '../modal/order-details-modal';
 import { OrderDetails } from '../../pages/order-details';
+import { IngredientDetailsPage } from '../../pages/ingredient-details-page';
 
 const App = () => {
   const location = useLocation();
@@ -93,7 +94,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path='/ingredients/:id' element={<IngredientDetails />} />
+        <Route path='/ingredients/:id' element={<IngredientDetailsPage />} />
         <Route path='/feed/:number' element={<OrderDetails />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
