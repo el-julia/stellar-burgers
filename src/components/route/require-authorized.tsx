@@ -5,12 +5,10 @@ import { selectIsLoading, selectUser } from '../../services/slices/profile';
 import { Preloader } from '@ui';
 
 interface ProtectedRouteProps {
-  requireAuth?: boolean;
   children: React.ReactNode;
 }
 
-export const ProtectedRoute: FC<ProtectedRouteProps> = ({
-  requireAuth,
+export const RequireAuthorized: FC<ProtectedRouteProps> = ({
   children
 }: ProtectedRouteProps) => {
   const user = useSelector(selectUser);
@@ -21,15 +19,8 @@ export const ProtectedRoute: FC<ProtectedRouteProps> = ({
     return <Preloader />;
   }
 
-  if (requireAuth && !user) {
+  if (!user) {
     return <Navigate to='/login' state={{ from: location }} />;
-  }
-
-  if (!requireAuth && user) {
-    if (location.state?.from) {
-      return <Navigate replace to={location.state.from} />;
-    }
-    return <Navigate replace to='/profile' />;
   }
 
   return children;

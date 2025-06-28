@@ -11,16 +11,17 @@ import {
 } from '@pages';
 import '../../index.css';
 import styles from './app.module.css';
-import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
+import { AppHeader, IngredientDetails, Modal } from '@components';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { getUser } from '../../services/slices/profile';
-import { ProtectedRoute } from '../protected-route';
+import { RequireAuthorized } from '../route';
 import { fetchIngredients } from '../../services/slices/ingredients';
 import { OrderDetailsModal } from '../modal/order-details-modal';
 import { OrderDetails } from '../../pages/order-details';
 import { IngredientDetailsPage } from '../../pages/ingredient-details-page';
+import { RequireUnauthorized } from '../route/require-unauthorized';
 
 const App = () => {
   const location = useLocation();
@@ -41,57 +42,57 @@ const App = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
+            <RequireUnauthorized>
               <Login />
-            </ProtectedRoute>
+            </RequireUnauthorized>
           }
         />
         <Route
           path='/register'
           element={
-            <ProtectedRoute>
+            <RequireUnauthorized>
               <Register />
-            </ProtectedRoute>
+            </RequireUnauthorized>
           }
         />
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute>
+            <RequireUnauthorized>
               <ForgotPassword />
-            </ProtectedRoute>
+            </RequireUnauthorized>
           }
         />
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute>
+            <RequireUnauthorized>
               <ResetPassword />
-            </ProtectedRoute>
+            </RequireUnauthorized>
           }
         />
         <Route
           path='/profile'
           element={
-            <ProtectedRoute requireAuth>
+            <RequireAuthorized>
               <Profile />
-            </ProtectedRoute>
+            </RequireAuthorized>
           }
         />
         <Route
           path='/profile/orders'
           element={
-            <ProtectedRoute requireAuth>
+            <RequireAuthorized>
               <ProfileOrders />
-            </ProtectedRoute>
+            </RequireAuthorized>
           }
         />
         <Route
           path='/profile/orders/:number'
           element={
-            <ProtectedRoute requireAuth>
+            <RequireAuthorized>
               <OrderDetails />
-            </ProtectedRoute>
+            </RequireAuthorized>
           }
         />
         <Route path='/ingredients/:id' element={<IngredientDetailsPage />} />
@@ -115,9 +116,9 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={
-              <ProtectedRoute requireAuth>
+              <RequireAuthorized>
                 <OrderDetailsModal />
-              </ProtectedRoute>
+              </RequireAuthorized>
             }
           />
         </Routes>
