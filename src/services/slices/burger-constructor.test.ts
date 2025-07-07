@@ -1,6 +1,6 @@
 import { expect, test, describe, jest } from '@jest/globals';
 import burgerConstructorSlice, {
-  addIngredient,
+  addIngredient, moveIngredient,
   removeIngredient,
   setBun
 } from './burger-constructor';
@@ -125,6 +125,19 @@ describe('burgerConstructorSlice', () => {
     const newState = burgerConstructorSlice.reducer(
       initialState,
       removeIngredient(idToRemove)
+    );
+    expect(newState.ingredients).toEqual(expectedIngredients);
+  });
+
+  test('тест редьюсера moveIngredient', () => {
+    const expectedIngredients = [
+      mockIngredients[1],
+      mockIngredients[0],
+      mockIngredients[2]
+    ];
+    const newState = burgerConstructorSlice.reducer(
+      initialState,
+      moveIngredient({ fromIndex: 0, toIndex: 1 })
     );
     expect(newState.ingredients).toEqual(expectedIngredients);
   });
