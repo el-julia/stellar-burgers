@@ -1,7 +1,10 @@
 import { expect, test, describe, jest } from '@jest/globals';
 import burgerConstructorSlice, {
-  addIngredient, clearConstructor, moveIngredient,
-  removeIngredient, selectConstructorItems,
+  addIngredient,
+  clearConstructor,
+  moveIngredient,
+  removeIngredient,
+  selectConstructorItems,
   setBun
 } from './burger-constructor';
 import { v4 as uuidv4 } from 'uuid';
@@ -147,7 +150,6 @@ describe('burgerConstructorSlice', () => {
   });
 
   test('тест редьюсера clearConstructor', () => {
-
     const newState = burgerConstructorSlice.reducer(
       initialState,
       clearConstructor()
