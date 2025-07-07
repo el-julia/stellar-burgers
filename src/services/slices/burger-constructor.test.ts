@@ -1,7 +1,7 @@
 import { expect, test, describe, jest } from '@jest/globals';
 import burgerConstructorSlice, {
   addIngredient, clearConstructor, moveIngredient,
-  removeIngredient,
+  removeIngredient, selectConstructorItems,
   setBun
 } from './burger-constructor';
 import { v4 as uuidv4 } from 'uuid';
@@ -91,6 +91,10 @@ describe('burgerConstructorSlice', () => {
     ingredients: [...mockIngredients]
   };
 
+  const rootState = {
+    burgerConstructor: initialState
+  };
+
   test('тест редьюсера setBun', () => {
     const newState = burgerConstructorSlice.reducer(
       initialState,
@@ -149,5 +153,9 @@ describe('burgerConstructorSlice', () => {
       clearConstructor()
     );
     expect(newState).toEqual(newState);
+  });
+  test('тест селектора selectConstructorItems', () => {
+    const result = selectConstructorItems(rootState);
+    expect(result).toEqual(initialState);
   });
 });

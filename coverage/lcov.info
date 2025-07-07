@@ -8,14 +8,14 @@ FN:35,moveIngredient
 FN:44,clearConstructor
 FN:50,selectConstructorItems
 FNF:7
-FNH:6
+FNH:7
 FNDA:1,setBun
 FNDA:1,reducer
 FNDA:1,prepare
 FNDA:1,removeIngredient
 FNDA:1,moveIngredient
 FNDA:1,clearConstructor
-FNDA:0,selectConstructorItems
+FNDA:1,selectConstructorItems
 DA:1,1
 DA:2,1
 DA:3,1
@@ -89,6 +89,7 @@ BRDA:30,3,0,1
 BRDA:32,4,0,3
 BRDA:35,5,0,1
 BRDA:44,6,0,1
-BRF:7
-BRH:7
+BRDA:50,7,0,1
+BRF:8
+BRH:8
 end_of_record
