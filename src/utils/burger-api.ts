@@ -97,6 +97,7 @@ export const getOrdersApi = () =>
       authorization: getCookie('accessToken')
     } as HeadersInit
   }).then((data) => {
+    console.log('Orders', data);
     if (data?.success) return data.orders;
     return Promise.reject(data);
   });

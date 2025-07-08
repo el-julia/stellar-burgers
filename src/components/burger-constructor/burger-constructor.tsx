@@ -11,7 +11,7 @@ import {
   placeOrder,
   selectOrderRequest,
   selectPlacedOrderData
-} from '../../services/slices/order';
+} from '../../services/slices/order/order';
 import { selectUser } from '../../services/slices/profile';
 import { useLocation, useNavigate } from 'react-router-dom';
 

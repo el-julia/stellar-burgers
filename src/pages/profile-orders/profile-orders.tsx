@@ -2,7 +2,7 @@ import { ProfileOrdersUI } from '@ui-pages';
 import { TOrder } from '@utils-types';
 import { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from '../../services/store';
-import { fetchOrders, selectOrders } from '../../services/slices/order';
+import { fetchOrders, selectOrders } from '../../services/slices/order/order';
 
 export const ProfileOrders: FC = () => {
   const orders: TOrder[] = useSelector(selectOrders);
