@@ -17,7 +17,7 @@ import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { getUser } from '../../services/slices/profile';
 import { RequireAuthorized } from '../route';
-import { fetchIngredients } from '../../services/slices/ingredients';
+import { fetchIngredients } from '../../services/slices/ingredients/ingredients';
 import { OrderDetailsModal } from '../modal/order-details-modal';
 import { OrderDetails } from '../../pages/order-details';
 import { IngredientDetailsPage } from '../../pages/ingredient-details-page';
