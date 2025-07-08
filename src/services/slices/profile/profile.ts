@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getUserApi, logoutApi, TRegisterData, updateUserApi } from '@api';
 import { TUser } from '@utils-types';
-import { deleteCookie, setCookie } from '../../utils/cookie';
-import { login } from './login/login';
-import { register } from './register';
+import { deleteCookie, setCookie } from '../../../utils/cookie';
+import { login } from '../login/login';
+import { register } from '../register';
 
 type TProfileState = {
   isLoading: boolean;
   user: TUser | null;
 };
-const initialState: TProfileState = {
+export const initialState: TProfileState = {
   isLoading: true,
   user: null
 };

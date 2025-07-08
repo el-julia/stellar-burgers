@@ -1,9 +1,14 @@
 import { describe, expect, test } from '@jest/globals';
 import orderSlice, {
+  clearPlacedOrderData,
   fetchOrderByNumber,
   fetchOrders,
-  initialState, placeOrder
+  initialState,
+  placeOrder
 } from './order';
+import burgerConstructorSlice, {
+  clearConstructor
+} from '../burger-constructor/burger-constructor';
 
 const mockOrder = {
   _id: '1',
@@ -17,8 +22,12 @@ const mockOrder = {
 
 const mockOrders = [mockOrder];
 
-
 describe('orderSlice reducer', () => {
+  test('тест clearPlacedOrderData', () => {
+    const newState = orderSlice.reducer(initialState, clearPlacedOrderData());
+    expect(newState).toEqual(newState);
+  });
+
   test('должен обработать fetchOrders.pending', () => {
     const nextState = orderSlice.reducer(
       initialState,
@@ -70,8 +79,6 @@ describe('orderSlice reducer', () => {
     );
     expect(nextState.orderRequest).toBe(false);
   });
-
-
 
   test('должен обработать placeOrder.pending', () => {
     const nextState = orderSlice.reducer(

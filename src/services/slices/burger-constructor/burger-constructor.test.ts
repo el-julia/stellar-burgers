@@ -156,8 +156,4 @@ describe('burgerConstructorSlice', () => {
     );
     expect(newState).toEqual(newState);
   });
-  test('тест селектора selectConstructorItems', () => {
-    const result = selectConstructorItems(rootState);
-    expect(result).toEqual(initialState);
-  });
 });

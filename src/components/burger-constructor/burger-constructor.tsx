@@ -12,7 +12,7 @@ import {
   selectOrderRequest,
   selectPlacedOrderData
 } from '../../services/slices/order/order';
-import { selectUser } from '../../services/slices/profile';
+import { selectUser } from '../../services/slices/profile/profile';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {

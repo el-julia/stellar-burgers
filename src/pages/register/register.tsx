@@ -1,7 +1,7 @@
 import { FC, SyntheticEvent, useState } from 'react';
 import { RegisterUI } from '@ui-pages';
 import { useSelector, useDispatch } from '../../services/store';
-import { selectIsLoading } from '../../services/slices/profile';
+import { selectIsLoading } from '../../services/slices/profile/profile';
 import { Preloader } from '@ui';
 import registerSlice, { register } from '../../services/slices/register';
 
