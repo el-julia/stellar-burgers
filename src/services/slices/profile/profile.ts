@@ -3,7 +3,7 @@ import { getUserApi, logoutApi, TRegisterData, updateUserApi } from '@api';
 import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../../utils/cookie';
 import { login } from '../login/login';
-import { register } from '../register';
+import { register } from '../register/register';
 
 type TProfileState = {
   isLoading: boolean;

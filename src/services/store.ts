@@ -11,7 +11,7 @@ import {
   useSelector as selectorHook
 } from 'react-redux';
 import loginSlice from './slices/login/login';
-import registerSlice from './slices/register';
+import registerSlice from './slices/register/register';
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsSlice.reducer,

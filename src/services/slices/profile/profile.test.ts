@@ -2,7 +2,7 @@ import { describe, expect, test } from '@jest/globals';
 import profileSlice, { getUser, logout, update } from './profile';
 import { initialState } from './profile';
 import { login } from '../login/login';
-import { register } from '../register';
+import { register } from '../register/register';
 
 describe('profileSlice reducer', () => {
   beforeEach(() => {
