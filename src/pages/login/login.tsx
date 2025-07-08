@@ -3,7 +3,7 @@ import { LoginUI } from '@ui-pages';
 import { useSelector, useDispatch } from '../../services/store';
 import { selectIsLoading } from '../../services/slices/profile';
 import { Preloader } from '@ui';
-import loginSlice, { login } from '../../services/slices/login';
+import loginSlice, { login } from '../../services/slices/login/login';
 
 export const Login: FC = () => {
   const isLoading = useSelector(selectIsLoading);

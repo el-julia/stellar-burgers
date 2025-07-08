@@ -10,7 +10,7 @@ import {
   useDispatch as dispatchHook,
   useSelector as selectorHook
 } from 'react-redux';
-import loginSlice from './slices/login';
+import loginSlice from './slices/login/login';
 import registerSlice from './slices/register';
 
 export const rootReducer = combineReducers({
