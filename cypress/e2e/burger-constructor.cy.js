@@ -1,6 +1,11 @@
 describe('Страница конструктора бургера', () => {
   beforeEach(() => {
     cy.intercept('GET', '**/ingredients', { fixture: 'ingredients.json' });
+    cy.intercept('GET', '**/auth/user', { fixture: 'user.json' });
+    cy.intercept('POST', '**/orders', { fixture: 'order.json' });
+
+    cy.setCookie('accessToken', 'test-access-token');
+    cy.setCookie('refreshToken', 'test-refresh-token');
     cy.visit('http://localhost:4000/');
   });
 
@@ -38,5 +43,26 @@ describe('Страница конструктора бургера', () => {
 
     cy.get('[data-cy="modal-overlay"]').click({ force: true });
     cy.get('[data-cy="ingredient-modal"]').should('not.exist');
+  });
+
+  it('Собирает бургер и оформляет заказ', () => {
+    // Добавляем ингредиенты
+    cy.get("[data-cy='ingredient-item'] button").first().click();
+    cy.get("[data-cy='ingredient-item'] button").last().click();
+
+    // Клик по кнопке «Оформить заказ»
+    cy.contains('Оформить заказ').click();
+
+    // Проверяем, что открылось модальное окно с номером заказа
+    cy.get('[data-cy="ingredient-modal"]').should('exist');
+    cy.contains('1234').should('exist');
+
+    // Закрываем модальное окно
+    cy.get('[data-cy="modal-close-button"]').click();
+    cy.get('[data-cy="ingredient-modal"]').should('not.exist');
+
+    // Проверка конструктора на пустоту
+    cy.contains('Выберите булки').should('exist');
+    cy.contains('Выберите начинку').should('exist');
   });
 });
