@@ -6,9 +6,6 @@ import orderSlice, {
   initialState,
   placeOrder
 } from './order';
-import burgerConstructorSlice, {
-  clearConstructor
-} from '../burger-constructor/burger-constructor';
 
 const mockOrder = {
   _id: '1',

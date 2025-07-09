@@ -45,12 +45,6 @@ describe('profileSlice reducer', () => {
     refreshToken: 'refresh-token'
   };
 
-  const mockLoginRequest = {
-    success: true,
-    email: 'email',
-    password: 'password'
-  };
-
   const registerData = {
     email: '',
     name: '',

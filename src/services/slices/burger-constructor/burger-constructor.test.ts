@@ -4,10 +4,9 @@ import burgerConstructorSlice, {
   clearConstructor,
   moveIngredient,
   removeIngredient,
-  selectConstructorItems,
   setBun
 } from './burger-constructor';
-import { v4 as uuidv4 } from 'uuid';
+
 
 jest.mock('uuid', () => ({
   v4: () => 'fixed-id-123'

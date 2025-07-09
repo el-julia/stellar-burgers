@@ -1,14 +1,7 @@
-import { expect, test, describe, jest } from '@jest/globals';
-import feedSlice, { fetchFeed } from './feed';
+import { expect, test, describe } from '@jest/globals';
+import feedSlice, { fetchFeed, initialState } from './feed';
 
 describe('feedSlice reducer', () => {
-  const initialState = {
-    orders: [],
-    error: null,
-    total: 0,
-    totalToday: 0,
-    isLoading: false
-  };
 
   test('должен обработать fetchFeed.pending', () => {
     const nextState = feedSlice.reducer(

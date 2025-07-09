@@ -10,7 +10,7 @@ type TFeedState = {
   isLoading: boolean;
 };
 
-const initialState: TFeedState = {
+export const initialState: TFeedState = {
   orders: [],
   error: null,
   total: 0,

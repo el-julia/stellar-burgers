@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import loginSlice, { login } from './login';
+import loginSlice, { initialState, login } from './login';
 
 const mockLoginRequest = {
   success: true,
@@ -8,10 +8,6 @@ const mockLoginRequest = {
 };
 
 describe('loginSlice reducer', () => {
-  const initialState = {
-    isError: false
-  };
-
   test('должен обработать login.pending', () => {
     const nextState = loginSlice.reducer(
       initialState,
@@ -19,7 +15,6 @@ describe('loginSlice reducer', () => {
     );
     expect(nextState.isError).toBe(false);
   });
-
 
   test('должен обработать login.rejected', () => {
     const nextState = loginSlice.reducer(

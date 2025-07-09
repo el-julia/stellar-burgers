@@ -1,14 +1,11 @@
 import { describe, expect, test } from '@jest/globals';
-import ingredientsSlice, { fetchIngredients } from './ingredients';
+import ingredientsSlice, {
+  fetchIngredients,
+  initialState
+} from './ingredients';
 import { TIngredient } from '@utils-types';
 
 describe('ingredientsSlice reducer', () => {
-  const initialState = {
-    items: undefined,
-    isLoading: false,
-    selectedIngredients: null
-  };
-
   test('должен обработать fetchIngredients.pending', () => {
     const nextState = ingredientsSlice.reducer(
       initialState,
