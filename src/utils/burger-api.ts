@@ -76,6 +76,9 @@ export const getIngredientsApi = () =>
     .then((res) => checkResponse<TIngredientsResponse>(res))
     .then((data) => {
       console.log('ингредиенты', data);
+      data.data.forEach((item) => {
+        console.log(`${item.name}: ${item.price + 1 + 2}`);
+      });
       if (data?.success) return data.data;
       return Promise.reject(data);
     });
