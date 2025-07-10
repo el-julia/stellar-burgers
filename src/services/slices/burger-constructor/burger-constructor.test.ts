@@ -7,7 +7,6 @@ import burgerConstructorSlice, {
   setBun
 } from './burger-constructor';
 
-
 jest.mock('uuid', () => ({
   v4: () => 'fixed-id-123'
 }));
@@ -93,10 +92,6 @@ describe('burgerConstructorSlice', () => {
     ingredients: [...mockIngredients]
   };
 
-  const rootState = {
-    burgerConstructor: initialState
-  };
-
   test('тест редьюсера setBun', () => {
     const newState = burgerConstructorSlice.reducer(
       initialState,
@@ -149,10 +144,15 @@ describe('burgerConstructorSlice', () => {
   });
 
   test('тест редьюсера clearConstructor', () => {
+    const mockConstructor = {
+      bun: mockBun,
+      ingredients: [...mockIngredients]
+    };
     const newState = burgerConstructorSlice.reducer(
-      initialState,
+      mockConstructor,
       clearConstructor()
     );
-    expect(newState).toEqual(newState);
+    expect(newState.bun).toBeNull();
+    expect(newState.ingredients).toEqual([]); // нужен другой стейт (сделала)
   });
 });

@@ -75,10 +75,6 @@ export const getIngredientsApi = () =>
   fetch(`${URL}/ingredients`)
     .then((res) => checkResponse<TIngredientsResponse>(res))
     .then((data) => {
-      console.log('ингредиенты', data);
-      data.data.forEach((item) => {
-        console.log(`${item.name}: ${item.price + 1 + 2}`);
-      });
       if (data?.success) return data.data;
       return Promise.reject(data);
     });
@@ -87,7 +83,6 @@ export const getFeedsApi = () =>
   fetch(`${URL}/orders/all`)
     .then((res) => checkResponse<TFeedsResponse>(res))
     .then((data) => {
-      console.log('Feeds', data);
       if (data?.success) return data;
       return Promise.reject(data);
     });
@@ -100,7 +95,6 @@ export const getOrdersApi = () =>
       authorization: getCookie('accessToken')
     } as HeadersInit
   }).then((data) => {
-    console.log('Orders', data);
     if (data?.success) return data.orders;
     return Promise.reject(data);
   });

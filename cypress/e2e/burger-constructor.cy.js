@@ -11,7 +11,9 @@ describe('Страница конструктора бургера', () => {
 
   it('Должна загрузить ингредиенты и показать булки и соусы', () => {
     cy.get('[data-cy="ingredient-item"]').should('have.length.at.least', 1);
+    // соус добавить
     cy.contains('Краторная булка N-200i').should('exist');
+    cy.contains('Соус Spicy-X').should('exist'); //(добавила сосус)
   });
 
   it('Добавляет ингредиент при клике по кнопке «Добавить»', () => {
@@ -26,23 +28,25 @@ describe('Страница конструктора бургера', () => {
   // тест модального окна
   it('Открывает модальное окно ингредиента', () => {
     cy.get('[data-cy="ingredient-item"]').first().click();
-    cy.get('[data-cy="ingredient-modal"]').should('exist');
+    cy.get('[data-cy="modal"]').should('exist');
+    cy.contains('Детали ингредиента').should('exist'); //(добавила проверку ингредиента)
+    //   не проверяет что тут именно ингредиент (сделала)
   });
 
   it('Закрывает модальное окно по крестику', () => {
     cy.get('[data-cy="ingredient-item"]').first().click();
-    cy.get('[data-cy="ingredient-modal"]').should('exist');
+    cy.get('[data-cy="modal"]').should('exist');
 
     cy.get('[data-cy="modal-close-button"]').click();
-    cy.get('[data-cy="ingredient-modal"]').should('not.exist');
+    cy.get('[data-cy="modal"]').should('not.exist');
   });
 
   it('Закрывает модальное окно по клику на оверлей', () => {
     cy.get('[data-cy="ingredient-item"]').first().click();
-    cy.get('[data-cy="ingredient-modal"]').should('exist');
+    cy.get('[data-cy="modal"]').should('exist');
 
     cy.get('[data-cy="modal-overlay"]').click({ force: true });
-    cy.get('[data-cy="ingredient-modal"]').should('not.exist');
+    cy.get('[data-cy="modal"]').should('not.exist');
   });
 
   it('Собирает бургер и оформляет заказ', () => {
@@ -54,12 +58,12 @@ describe('Страница конструктора бургера', () => {
     cy.contains('Оформить заказ').click();
 
     // Проверяем, что открылось модальное окно с номером заказа
-    cy.get('[data-cy="ingredient-modal"]').should('exist');
+    cy.get('[data-cy="modal"]').should('exist');
     cy.contains('1234').should('exist');
 
     // Закрываем модальное окно
     cy.get('[data-cy="modal-close-button"]').click();
-    cy.get('[data-cy="ingredient-modal"]').should('not.exist');
+    cy.get('[data-cy="modal"]').should('not.exist');
 
     // Проверка конструктора на пустоту
     cy.contains('Выберите булки').should('exist');

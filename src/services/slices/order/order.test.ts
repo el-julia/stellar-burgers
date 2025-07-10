@@ -21,8 +21,17 @@ const mockOrders = [mockOrder];
 
 describe('orderSlice reducer', () => {
   test('тест clearPlacedOrderData', () => {
-    const newState = orderSlice.reducer(initialState, clearPlacedOrderData());
-    expect(newState).toEqual(newState);
+
+    const initialStateOrder = {
+      orders: mockOrders,
+      orderData: null,
+      placedOrderData: mockOrder,
+      orderRequest: false
+    };
+    // нужно в стейт ордер добавитьч (сделала)
+    const newState = orderSlice.reducer(initialStateOrder, clearPlacedOrderData());
+    expect(newState.placedOrderData).toBeNull();// ???
+    expect(newState.orders).toEqual(mockOrders);
   });
 
   test('должен обработать fetchOrders.pending', () => {

@@ -2,6 +2,17 @@ import { expect, test, describe } from '@jest/globals';
 import feedSlice, { fetchFeed, initialState } from './feed';
 
 describe('feedSlice reducer', () => {
+  const mockOrders = [
+    {
+      _id: '123',
+      status: '',
+      name: '',
+      createdAt: '',
+      updatedAt: '',
+      number: 5,
+      ingredients: []
+    }
+  ];
 
   test('должен обработать fetchFeed.pending', () => {
     const nextState = feedSlice.reducer(
@@ -15,7 +26,7 @@ describe('feedSlice reducer', () => {
   test('должен обработать fetchFeed.fulfilled', () => {
     const mockResponse = {
       success: true,
-      orders: [],
+      orders: mockOrders, // нужно не пустое (сделала)
       total: 10,
       totalToday: 2
     };
@@ -26,8 +37,8 @@ describe('feedSlice reducer', () => {
 
     expect(nextState.isLoading).toBe(false);
     expect(nextState.orders).toEqual(mockResponse.orders);
-    expect(nextState.total).toBe(10);
-    expect(nextState.totalToday).toBe(2);
+    expect(nextState.total).toBe(mockResponse.total); // взять из mockResponse (сделала)
+    expect(nextState.totalToday).toBe(mockResponse.totalToday); // взять из mockResponse (сделала)
     expect(nextState.error).toBeNull();
   });
 
