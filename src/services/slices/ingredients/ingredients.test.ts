@@ -46,7 +46,7 @@ describe('ingredientsSlice reducer', () => {
   });
 
   test('должен обработать fetchIngredients.fulfilled', () => {
-    const mockItems: TIngredient[] = mockIngredients; // нужно не пустое (добавила)
+    const mockItems: TIngredient[] = mockIngredients;
     const nextState = ingredientsSlice.reducer(
       initialState,
       fetchIngredients.fulfilled(mockItems, '', undefined)

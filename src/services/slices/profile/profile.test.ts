@@ -115,9 +115,13 @@ describe('profileSlice reducer', () => {
   });
 
   test('должен обработать logout.fulfilled', () => {
-    // нужно юзера в стейт положить
+    let userState = {
+      isLoading: true,
+      user: mockUser
+    };
+
     const nextState = profileSlice.reducer(
-      initialState,
+      userState,
       logout.fulfilled(mockUserResponse, '', undefined)
     );
 

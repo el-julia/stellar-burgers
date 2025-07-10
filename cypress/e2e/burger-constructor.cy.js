@@ -11,26 +11,21 @@ describe('Страница конструктора бургера', () => {
 
   it('Должна загрузить ингредиенты и показать булки и соусы', () => {
     cy.get('[data-cy="ingredient-item"]').should('have.length.at.least', 1);
-    // соус добавить
     cy.contains('Краторная булка N-200i').should('exist');
-    cy.contains('Соус Spicy-X').should('exist'); //(добавила сосус)
+    cy.contains('Соус Spicy-X').should('exist');
   });
 
   it('Добавляет ингредиент при клике по кнопке «Добавить»', () => {
-    //клик по кнопке Добавить
     cy.get("[data-cy='ingredient-item'] button").first().click();
     cy.get("[data-cy='ingredient-item'] button").last().click();
 
-    //ингредиент появился
     cy.get('[data-cy="ingredient-burger"]').should('have.length', 1);
   });
 
-  // тест модального окна
   it('Открывает модальное окно ингредиента', () => {
     cy.get('[data-cy="ingredient-item"]').first().click();
     cy.get('[data-cy="modal"]').should('exist');
-    cy.contains('Детали ингредиента').should('exist'); //(добавила проверку ингредиента)
-    //   не проверяет что тут именно ингредиент (сделала)
+    cy.contains('Детали ингредиента').should('exist');
   });
 
   it('Закрывает модальное окно по крестику', () => {

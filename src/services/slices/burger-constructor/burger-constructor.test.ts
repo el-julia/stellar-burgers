@@ -153,6 +153,6 @@ describe('burgerConstructorSlice', () => {
       clearConstructor()
     );
     expect(newState.bun).toBeNull();
-    expect(newState.ingredients).toEqual([]); // нужен другой стейт (сделала)
+    expect(newState.ingredients).toEqual([]);
   });
 });
