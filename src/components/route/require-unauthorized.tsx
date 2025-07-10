@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from '../../services/store';
+import { useSelector } from '../../services/store/store';
 import {
   selectIsLoading,
   selectUser

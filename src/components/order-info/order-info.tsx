@@ -6,7 +6,7 @@ import {
   selectOrderData,
   selectOrderRequest
 } from '../../services/slices/order/order';
-import { useDispatch, useSelector } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store/store';
 import { selectIngredients } from '../../services/slices/ingredients/ingredients';
 import { useParams } from 'react-router-dom';
 

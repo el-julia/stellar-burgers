@@ -1,3 +1,5 @@
+import { INGREDIENT_BURGER } from './selectors';
+
 describe('Страница конструктора бургера', () => {
   beforeEach(() => {
     cy.intercept('GET', '**/ingredients', { fixture: 'ingredients.json' });
@@ -8,57 +10,81 @@ describe('Страница конструктора бургера', () => {
     cy.setCookie('refreshToken', 'test-refresh-token');
     cy.visit('http://localhost:4000/');
   });
+  // очищаю куки и хранилище от моковых данных после окончания тестов
+  afterEach(() => {
+    cy.clearCookies();
+    cy.clearLocalStorage();
+  });
 
   it('Должна загрузить ингредиенты и показать булки и соусы', () => {
-    cy.get('[data-cy="ingredient-item"]').should('have.length.at.least', 1);
+    // проверяем, что ингредиентов ещё нет (страница только открыта)
+    cy.getIngredients().should('not.exist');
+
+    cy.getIngredients().should('have.length.at.least', 1);
     cy.contains('Краторная булка N-200i').should('exist');
     cy.contains('Соус Spicy-X').should('exist');
   });
 
   it('Добавляет ингредиент при клике по кнопке «Добавить»', () => {
-    cy.get("[data-cy='ingredient-item'] button").first().click();
-    cy.get("[data-cy='ingredient-item'] button").last().click();
+    cy.get(INGREDIENT_BURGER).should('not.exist');
 
-    cy.get('[data-cy="ingredient-burger"]').should('have.length', 1);
+    cy.getIngredients().as('ingredients');
+    cy.get('@ingredients').first().find('button').click();
+    cy.get('@ingredients').last().find('button').click();
+
+    cy.get(INGREDIENT_BURGER).should('have.length', 1);
   });
 
   it('Открывает модальное окно ингредиента', () => {
-    cy.get('[data-cy="ingredient-item"]').first().click();
-    cy.get('[data-cy="modal"]').should('exist');
-    cy.contains('Детали ингредиента').should('exist');
+    // проверяю закрыта ли модалка
+    cy.getModal().should('not.exist');
+
+    //кликаем по ингредиенту (булка)
+    cy.openIngredientModalByName('Краторная булка N-200i');
+
+    cy.getModal().should('exist');
+    cy.contains('Краторная булка N-200i').should('exist');
   });
 
   it('Закрывает модальное окно по крестику', () => {
-    cy.get('[data-cy="ingredient-item"]').first().click();
-    cy.get('[data-cy="modal"]').should('exist');
+    cy.getIngredients().as('ingredients');
+    cy.get('@ingredients').first().find('button').click();
+    cy.getModal().should('not.exist');
 
-    cy.get('[data-cy="modal-close-button"]').click();
-    cy.get('[data-cy="modal"]').should('not.exist');
+    cy.get('@ingredients').first().click();
+    cy.getModal().should('exist');
+    cy.closeModalByButton();
+    cy.getModal().should('not.exist');
   });
 
   it('Закрывает модальное окно по клику на оверлей', () => {
-    cy.get('[data-cy="ingredient-item"]').first().click();
-    cy.get('[data-cy="modal"]').should('exist');
+    cy.getIngredients().first().click();
+    cy.getModal().should('exist');
 
-    cy.get('[data-cy="modal-overlay"]').click({ force: true });
-    cy.get('[data-cy="modal"]').should('not.exist');
+    cy.closeModalByOverlay();
+    cy.getModal().should('not.exist');
   });
 
   it('Собирает бургер и оформляет заказ', () => {
+    // проверяю конструктор на пустоту
+    cy.contains('Выберите булки').should('exist');
+    cy.contains('Выберите начинку').should('exist');
+
     // Добавляем ингредиенты
-    cy.get("[data-cy='ingredient-item'] button").first().click();
-    cy.get("[data-cy='ingredient-item'] button").last().click();
+    cy.getIngredients().as('ingredients');
+    cy.get('@ingredients').first().find('button').click();
+    cy.get('@ingredients').last().find('button').click();
 
     // Клик по кнопке «Оформить заказ»
     cy.contains('Оформить заказ').click();
 
     // Проверяем, что открылось модальное окно с номером заказа
-    cy.get('[data-cy="modal"]').should('exist');
+    cy.getModal().should('exist');
     cy.contains('1234').should('exist');
 
     // Закрываем модальное окно
-    cy.get('[data-cy="modal-close-button"]').click();
-    cy.get('[data-cy="modal"]').should('not.exist');
+    cy.closeModalByButton();
+    cy.getModal().should('not.exist');
 
     // Проверка конструктора на пустоту
     cy.contains('Выберите булки').should('exist');
