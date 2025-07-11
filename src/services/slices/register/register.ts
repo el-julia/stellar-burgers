@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getUserApi, registerUserApi, TRegisterData } from '@api';
 import { TUser } from '@utils-types';
-import { setCookie } from '../../utils/cookie';
-import { login } from './login';
+import { setCookie } from '../../../utils/cookie';
+import { login } from '../login/login';
 
 type TProfileState = {
   isError: boolean;
 };
-const initialState: TProfileState = {
+export const initialState: TProfileState = {
   isError: false
 };
 

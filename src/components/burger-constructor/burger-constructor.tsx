@@ -1,18 +1,18 @@
 import { FC, useEffect, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { useDispatch, useSelector } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store/store';
 import {
   clearConstructor,
   selectConstructorItems
-} from '../../services/slices/burger-constructor';
+} from '../../services/slices/burger-constructor/burger-constructor';
 import {
   clearPlacedOrderData,
   placeOrder,
   selectOrderRequest,
   selectPlacedOrderData
-} from '../../services/slices/order';
-import { selectUser } from '../../services/slices/profile';
+} from '../../services/slices/order/order';
+import { selectUser } from '../../services/slices/profile/profile';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
