@@ -25,14 +25,35 @@ describe('Страница конструктора бургера', () => {
     cy.contains('Соус Spicy-X').should('exist');
   });
 
+  //переписываю этот тест
   it('Добавляет ингредиент при клике по кнопке «Добавить»', () => {
+    //проверяем что конструктор пустой
+    const topBunSelector = '[data-cy="bun-top"]';
+    const bottomBunSelector = '[data-cy="bun-bottom"]';
     cy.get(INGREDIENT_BURGER).should('not.exist');
+    cy.get(topBunSelector).should('not.exist');
+    cy.get(bottomBunSelector).should('not.exist');
 
-    cy.getIngredients().as('ingredients');
-    cy.get('@ingredients').first().find('button').click();
-    cy.get('@ingredients').last().find('button').click();
+    //добавляем булку
+    const ingredientItemSelector = '[data-cy="ingredient-item"]';
+    cy.contains('Краторная булка N-200i')
+      .parents(ingredientItemSelector)
+      .find('button')
+      .click();
 
-    cy.get(INGREDIENT_BURGER).should('have.length', 1);
+    // добавялем котлету
+    cy.contains('Биокотлета из марсианской Магнолии')
+      .parents(ingredientItemSelector)
+      .find('button')
+      .click();
+
+    // проверяем что в конструктор попала именно булка и котлета на которые кликали
+    cy.get(topBunSelector).should('contain', 'Краторная булка N-200i (верх)');
+    cy.get(INGREDIENT_BURGER).should(
+      'contain',
+      'Биокотлета из марсианской Магнолии'
+    );
+    cy.get(bottomBunSelector).should('contain', 'Краторная булка N-200i (низ)');
   });
 
   it('Открывает модальное окно ингредиента', () => {
@@ -42,8 +63,9 @@ describe('Страница конструктора бургера', () => {
     //кликаем по ингредиенту (булка)
     cy.openIngredientModalByName('Краторная булка N-200i');
 
-    cy.getModal().should('exist');
-    cy.contains('Краторная булка N-200i').should('exist');
+    cy.getModal().as('modal');
+    cy.get('@modal').should('exist');
+    cy.get('@modal').should('contain', 'Краторная булка N-200i');
   });
 
   it('Закрывает модальное окно по крестику', () => {
@@ -79,8 +101,9 @@ describe('Страница конструктора бургера', () => {
     cy.contains('Оформить заказ').click();
 
     // Проверяем, что открылось модальное окно с номером заказа
-    cy.getModal().should('exist');
-    cy.contains('1234').should('exist');
+    cy.getModal().as('modal');
+    cy.get('@modal').should('exist');
+    cy.get('@modal').should('contain', '1234');
 
     // Закрываем модальное окно
     cy.closeModalByButton();
