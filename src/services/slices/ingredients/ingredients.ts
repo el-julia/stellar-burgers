@@ -7,7 +7,7 @@ type TIngredientsState = {
   isLoading: boolean;
   selectedIngredients: TIngredient | null;
 };
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   items: undefined,
   isLoading: false,
   selectedIngredients: null

@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from '../../services/store';
-import { selectIsLoading, selectUser } from '../../services/slices/profile';
+import { useSelector } from '../../services/store/store';
+import {
+  selectIsLoading,
+  selectUser
+} from '../../services/slices/profile/profile';
 import { Preloader } from '@ui';
 
 interface ProtectedRouteProps {

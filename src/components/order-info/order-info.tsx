@@ -5,9 +5,9 @@ import {
   fetchOrderByNumber,
   selectOrderData,
   selectOrderRequest
-} from '../../services/slices/order';
-import { useDispatch, useSelector } from '../../services/store';
-import { selectIngredients } from '../../services/slices/ingredients';
+} from '../../services/slices/order/order';
+import { useDispatch, useSelector } from '../../services/store/store';
+import { selectIngredients } from '../../services/slices/ingredients/ingredients';
 import { useParams } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {
